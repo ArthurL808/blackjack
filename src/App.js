@@ -1,62 +1,36 @@
-import React, { useEffect, useState } from "react";
-import DealButton from "./DealButton";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Hands from "./Hands";
-import axios from "axios";
 import "./App.css";
+import { dealHands, loadDeck, drawCard } from "./actions";
 
 const App = () => {
-  const [deck, setDeck] = useState({
-    deck_id: "",
-    remaining: 0,
-    shuffled: false,
-    success: false,
-  });
-
-  // const [draw, setDraw] = useState(false);
-  const [playersHand, setPlayersHand] = useState([]);
-  const [dealersHand, setDealersHand] = useState([]);
-
+  const dispatch = useDispatch();
+  const deck = useSelector((state) => state.deck);
   useEffect(() => {
-    axios
-      .get("http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6")
-      .then((res) => {
-        setDeck(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+    dispatch(loadDeck());
+  }, [dispatch]);
 
   return (
     <div className="App">
       <h3>Black Jack App</h3>
-      <DealButton
-        deckId={deck.deck_id}
-        setDealersHand={setDealersHand}
-        setPlayersHand={setPlayersHand}
-      />
-      {/* {draw ? (
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            axios
-              .get(
-                `http://deckofcardsapi.com/api/deck/${deck.deck_id}/draw/?count=1`
-              )
-              .then((res) => {
-                setPlayersHand([...playersHand, res.data.cards[0]]);
-              })
-              .catch((err) => {
-                console.error(err);
-              });
-          }}
-        >
-          Hit
-        </button>
-      ) : null} */}
-      <Hands cards={playersHand} />
-      
-      <Hands cards={dealersHand} />
+      <button
+        onClick={() => {
+          dispatch(dealHands(deck.deck_id));
+        }}
+      >
+        Deal
+      </button>
+      <button
+        onClick={() => {
+          dispatch(drawCard(deck.deck_id));
+        }}
+      >
+        Draw
+      </button>
+
+      {/* <Hands cards={dealersHand} />
+      <Hands cards={playersHand} /> */}
     </div>
   );
 };

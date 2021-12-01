@@ -6,9 +6,10 @@ const Hands = ({ ...props }) => {
 
   return (
     <div>
-      {/* {console.log(hand)} */}
-      {/* {hand.total} */}
-      <Cards cards={props.cards} />
+      {handvalue}
+      {props.cards.map((card) => {
+        return <Cards code={card.code} image={card.image} />;
+      })}
     </div>
   );
 };
