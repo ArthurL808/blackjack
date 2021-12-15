@@ -2,14 +2,20 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Hands from "./Hands";
 import "./App.css";
-import { dealHands, loadDeck, drawCard } from "./actions";
+import { dealHands, hitUser, getDeckAction } from "./actions";
 
 const App = () => {
+  
   const dispatch = useDispatch();
+
   const deck = useSelector((state) => state.deck);
+  const playersHand = useSelector((state) => state.playersHand);
+  const dealersHand = useSelector((state) => state.dealersHand);
+
   useEffect(() => {
-    dispatch(loadDeck());
-  }, [dispatch]);
+    dispatch(getDeckAction());
+  }, []);
+
 
   return (
     <div className="App">
@@ -23,14 +29,14 @@ const App = () => {
       </button>
       <button
         onClick={() => {
-          dispatch(drawCard(deck.deck_id));
+          dispatch(hitUser(deck.deck_id, 1));
         }}
       >
-        Draw
+        HIT
       </button>
-
-      {/* <Hands cards={dealersHand} />
-      <Hands cards={playersHand} /> */}
+      <p>Cards remaining: {deck.remaining}</p>
+      <Hands hand={dealersHand} />
+      <Hands hand={playersHand} />
     </div>
   );
 };

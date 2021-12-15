@@ -1,12 +1,12 @@
 import axios from "axios";
 
-export const DRAW_CARD = "DRAW_CARD";
+export const HIT_USER = "HIT_USER";
 export const LOAD_DECK = "LOAD_DECK";
 export const DEAL_HANDS = "DEAL_HANDS";
 
-export const loadDeck = () => (dispatch) => {
+export const getDeckAction = () => (dispatch) => {
   axios
-    .get("http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6")
+    .get("http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
     .then((res) => {
       dispatch({
         type: LOAD_DECK,
@@ -18,35 +18,61 @@ export const loadDeck = () => (dispatch) => {
     });
 };
 
-export const dealHands = (deckId) => (dispatch) => {
-  axios
-    .get(`http://deckofcardsapi.com/api/deck/${deckId}/draw/?count=4`)
+export const dealHands = (deckId) => async (dispatch) => {
+  let playerCardsResponse = await drawCards(deckId, 2);
+  let dealersCardsResponse = await drawCards(deckId, 2);
+
+  let playerTotal = convertCardsValueToNum(playerCardsResponse.cards);
+  let dealersTotal = convertCardsValueToNum(dealersCardsResponse.cards);
+
+  dispatch({
+    type: DEAL_HANDS,
+    payload: {
+      playersCards: playerCardsResponse.cards,
+      dealersCards: dealersCardsResponse.cards,
+      playerTotal: playerTotal,
+      dealersTotal: dealersTotal,
+      remaining: dealersCardsResponse.remaining,
+    },
+  });
+};
+
+export const hitUser = (deckId, count) => async (dispatch) => {
+  let card = await drawCards(deckId, count);
+  let total = convertCardsValueToNum(card.cards);
+
+  dispatch({
+    type: HIT_USER,
+    payload: { card: card.cards[0], total: total, remaining: card.remaining },
+  });
+};
+
+const drawCards = (deckId, count) => {
+  return axios
+    .get(`http://deckofcardsapi.com/api/deck/${deckId}/draw/?count=${count}`)
     .then((res) => {
-      let dealersCards = res.data.cards.slice(0, 2);
-      let playersCards = res.data.cards.slice(2);
-      dispatch({
-        type: DEAL_HANDS,
-        payload: {
-          playersHand: playersCards,
-          dealersHand: dealersCards,
-        },
-      });
+      console.log(res.data.cards);
+      return res.data;
     })
     .catch((err) => {
       console.error(err);
     });
 };
 
-export const drawCard = (deckId) => (dispatch) => {
-  axios
-    .get(`http://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
-    .then((res) => {
-      dispatch({
-        type: DRAW_CARD,
-        payload: res.data.cards[0],
-      });
+const convertCardsValueToNum = (cards) => {
+  return cards
+    .map((card) => {
+      if (isNaN(card.value)) {
+        return 10;
+      } else {
+        return parseInt(card.value);
+      }
     })
-    .catch((err) => {
-      console.error(err);
+    .reduce((a, b) => {
+      return a + b;
     });
 };
+
+// const updatePlayerValue = (valueArr) => (dispatch) => {};
+
+// const updateAiValue = () => (dispatch) => {};
