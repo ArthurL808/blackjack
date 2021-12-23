@@ -16,7 +16,6 @@ const App = () => {
   const deck = useSelector(selectDeck);
   const playersCards = useSelector(selectPlayersCards);
   const dealersCards = useSelector(selectDealersCards);
-
   const playerTotal = useSelector(selectPlayerTotal);
 
   useEffect(() => {
@@ -25,7 +24,6 @@ const App = () => {
 
   return (
     <div className="App">
-      {console.log(playerTotal)}
       <h3>Black Jack App</h3>
       <button
         onClick={() => {
