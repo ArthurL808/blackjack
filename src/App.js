@@ -3,22 +3,29 @@ import { useSelector, useDispatch } from "react-redux";
 import Hands from "./Hands";
 import "./App.css";
 import { dealHands, hitUser, getDeckAction } from "./actions";
+import {
+  selectDeck,
+  selectPlayersCards,
+  selectDealersCards,
+  selectPlayerTotal,
+} from "./selectors";
 
 const App = () => {
-  
   const dispatch = useDispatch();
 
-  const deck = useSelector((state) => state.deck);
-  const playersHand = useSelector((state) => state.playersHand);
-  const dealersHand = useSelector((state) => state.dealersHand);
+  const deck = useSelector(selectDeck);
+  const playersCards = useSelector(selectPlayersCards);
+  const dealersCards = useSelector(selectDealersCards);
+
+  const playerTotal = useSelector(selectPlayerTotal);
 
   useEffect(() => {
     dispatch(getDeckAction());
   }, []);
 
-
   return (
     <div className="App">
+      {console.log(playerTotal)}
       <h3>Black Jack App</h3>
       <button
         onClick={() => {
@@ -35,8 +42,8 @@ const App = () => {
         HIT
       </button>
       <p>Cards remaining: {deck.remaining}</p>
-      <Hands hand={dealersHand} />
-      <Hands hand={playersHand} />
+      <Hands cards={dealersCards} />
+      <Hands cards={playersCards} total={playerTotal} />
     </div>
   );
 };

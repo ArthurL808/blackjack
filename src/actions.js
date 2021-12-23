@@ -21,29 +21,22 @@ export const getDeckAction = () => (dispatch) => {
 export const dealHands = (deckId) => async (dispatch) => {
   let playerCardsResponse = await drawCards(deckId, 2);
   let dealersCardsResponse = await drawCards(deckId, 2);
-
-  let playerTotal = convertCardsValueToNum(playerCardsResponse.cards);
-  let dealersTotal = convertCardsValueToNum(dealersCardsResponse.cards);
-
   dispatch({
     type: DEAL_HANDS,
     payload: {
       playersCards: playerCardsResponse.cards,
       dealersCards: dealersCardsResponse.cards,
-      playerTotal: playerTotal,
-      dealersTotal: dealersTotal,
       remaining: dealersCardsResponse.remaining,
     },
   });
 };
 
 export const hitUser = (deckId, count) => async (dispatch) => {
-  let card = await drawCards(deckId, count);
-  let total = convertCardsValueToNum(card.cards);
+  let cardResponse = await drawCards(deckId, count);
 
   dispatch({
     type: HIT_USER,
-    payload: { card: card.cards[0], total: total, remaining: card.remaining },
+    payload: { card: cardResponse.cards[0], remaining: cardResponse.remaining },
   });
 };
 
@@ -51,7 +44,7 @@ const drawCards = (deckId, count) => {
   return axios
     .get(`http://deckofcardsapi.com/api/deck/${deckId}/draw/?count=${count}`)
     .then((res) => {
-      console.log(res.data.cards);
+      
       return res.data;
     })
     .catch((err) => {
@@ -59,20 +52,10 @@ const drawCards = (deckId, count) => {
     });
 };
 
-const convertCardsValueToNum = (cards) => {
-  return cards
-    .map((card) => {
-      if (isNaN(card.value)) {
-        return 10;
-      } else {
-        return parseInt(card.value);
-      }
-    })
-    .reduce((a, b) => {
-      return a + b;
-    });
+const convertCardsValueToNum = (card) => {
+  if (card.value === "ACE") {
+    return 11;
+  }
+  return isNaN(card.value) ? 10 : parseInt(card.value);
 };
 
-// const updatePlayerValue = (valueArr) => (dispatch) => {};
-
-// const updateAiValue = () => (dispatch) => {};
