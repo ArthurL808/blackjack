@@ -1,9 +1,17 @@
-import { LOAD_DECK, DEAL_HANDS, HIT_USER } from "./actions";
+import {
+  LOAD_DECK,
+  DEAL_HANDS,
+  HIT_USER,
+  PLAYER_BUST,
+  PLAYER_BLACKJACK,
+} from "./actions";
 
 const initalState = {
   deck: { deck_id: "", remaining: 0, shuffled: false, success: false },
   playersCards: [],
   dealersCards: [],
+  playerLost: false,
+  playerBlackjack: false,
 };
 
 export const reducer = (state = initalState, action) => {
@@ -23,6 +31,10 @@ export const reducer = (state = initalState, action) => {
         deck: { ...state.deck, remaining: action.payload.remaining },
         playersCards: [...state.playersCards, action.payload.card],
       };
+    case PLAYER_BUST:
+      return { ...state, playerLost: action.payload };
+    case PLAYER_BLACKJACK:
+      return { ...state, playerBlackjack: action.payload };
     default:
       return state;
   }

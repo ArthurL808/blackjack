@@ -8,6 +8,7 @@ import {
   selectPlayersCards,
   selectDealersCards,
   selectPlayerTotal,
+  selectDealerTotal
 } from "./selectors";
 
 const App = () => {
@@ -17,6 +18,8 @@ const App = () => {
   const playersCards = useSelector(selectPlayersCards);
   const dealersCards = useSelector(selectDealersCards);
   const playerTotal = useSelector(selectPlayerTotal);
+
+  const dealerTotal = useSelector(selectDealerTotal)
 
   useEffect(() => {
     dispatch(getDeckAction());
@@ -39,6 +42,9 @@ const App = () => {
       >
         HIT
       </button>
+      <button onClick={()=>{
+        
+        }}>STAND</button>
       <p>Cards remaining: {deck.remaining}</p>
       <Hands cards={dealersCards} />
       <Hands cards={playersCards} total={playerTotal} />

@@ -3,6 +3,8 @@ import axios from "axios";
 export const HIT_USER = "HIT_USER";
 export const LOAD_DECK = "LOAD_DECK";
 export const DEAL_HANDS = "DEAL_HANDS";
+export const PLAYER_BUST = "PLAYER_BUST";
+export const PLAYER_BLACKJACK = "PLAYER_BLACKJACK";
 
 export const getDeckAction = () => (dispatch) => {
   axios
@@ -44,7 +46,6 @@ const drawCards = (deckId, count) => {
   return axios
     .get(`http://deckofcardsapi.com/api/deck/${deckId}/draw/?count=${count}`)
     .then((res) => {
-      
       return res.data;
     })
     .catch((err) => {
@@ -52,10 +53,16 @@ const drawCards = (deckId, count) => {
     });
 };
 
-const convertCardsValueToNum = (card) => {
-  if (card.value === "ACE") {
-    return 11;
-  }
-  return isNaN(card.value) ? 10 : parseInt(card.value);
+export const playerBust = (dispatch) => {
+  return dispatch({
+    type: PLAYER_BUST,
+    payload: true,
+  });
 };
 
+export const playerBlackjack = (dispatch) => {
+  return dispatch({
+    type: PLAYER_BLACKJACK,
+    payload: true,
+  });
+};
