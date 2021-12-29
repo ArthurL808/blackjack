@@ -1,14 +1,21 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Hands from "./Hands";
+import PlayerHand from "./PlayerHand";
+import DealerHand from "./DealerHand";
 import "./App.css";
-import { dealHands, hitUser, getDeckAction } from "./actions";
+import {
+  dealHandsAction,
+  hitUserAction,
+  getDeckAction,
+  playerStandAction,
+} from "./actions";
 import {
   selectDeck,
   selectPlayersCards,
   selectDealersCards,
   selectPlayerTotal,
-  selectDealerTotal
+  selectDealerTotal,
+  selectPlayerStand,
 } from "./selectors";
 
 const App = () => {
@@ -18,36 +25,47 @@ const App = () => {
   const playersCards = useSelector(selectPlayersCards);
   const dealersCards = useSelector(selectDealersCards);
   const playerTotal = useSelector(selectPlayerTotal);
-
-  const dealerTotal = useSelector(selectDealerTotal)
+  const dealerTotal = useSelector(selectDealerTotal);
+  const playerStand = useSelector(selectPlayerStand);
 
   useEffect(() => {
     dispatch(getDeckAction());
   }, []);
+
 
   return (
     <div className="App">
       <h3>Black Jack App</h3>
       <button
         onClick={() => {
-          dispatch(dealHands(deck.deck_id));
+          dispatch(dealHandsAction(deck.deck_id));
         }}
       >
         Deal
       </button>
       <button
         onClick={() => {
-          dispatch(hitUser(deck.deck_id, 1));
+          dispatch(hitUserAction(deck.deck_id, 1));
         }}
       >
         HIT
       </button>
-      <button onClick={()=>{
-        
-        }}>STAND</button>
+      <button
+        onClick={() => {
+          dispatch(playerStandAction);
+        }}
+      >
+        STAND
+      </button>
       <p>Cards remaining: {deck.remaining}</p>
-      <Hands cards={dealersCards} />
-      <Hands cards={playersCards} total={playerTotal} />
+      <DealerHand
+        deckId={deck.deck_id}
+        total={dealerTotal}
+        cards={dealersCards}
+        playerStand={playerStand}
+        playerTotal={playerTotal}
+      />
+      <PlayerHand cards={playersCards} total={playerTotal} />
     </div>
   );
 };

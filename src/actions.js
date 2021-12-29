@@ -3,8 +3,12 @@ import axios from "axios";
 export const HIT_USER = "HIT_USER";
 export const LOAD_DECK = "LOAD_DECK";
 export const DEAL_HANDS = "DEAL_HANDS";
-export const PLAYER_BUST = "PLAYER_BUST";
+export const PLAYER_LOSS = "PLAYER_LOSS";
 export const PLAYER_BLACKJACK = "PLAYER_BLACKJACK";
+export const HIT_DEALER = "HIT_DEALER";
+export const PLAYER_STAND = "PLAYER_STAND";
+export const PLAYER_WIN = "PLAYER_WIN";
+export const PLAYER_PUSH = "PLAYER_PUSH";
 
 export const getDeckAction = () => (dispatch) => {
   axios
@@ -20,7 +24,7 @@ export const getDeckAction = () => (dispatch) => {
     });
 };
 
-export const dealHands = (deckId) => async (dispatch) => {
+export const dealHandsAction = (deckId) => async (dispatch) => {
   let playerCardsResponse = await drawCards(deckId, 2);
   let dealersCardsResponse = await drawCards(deckId, 2);
   dispatch({
@@ -33,7 +37,7 @@ export const dealHands = (deckId) => async (dispatch) => {
   });
 };
 
-export const hitUser = (deckId, count) => async (dispatch) => {
+export const hitUserAction = (deckId, count) => async (dispatch) => {
   let cardResponse = await drawCards(deckId, count);
 
   dispatch({
@@ -53,16 +57,49 @@ const drawCards = (deckId, count) => {
     });
 };
 
-export const playerBust = (dispatch) => {
+export const dealerDrawAction = (deckId, count) => async (dispatch) => {
+  let cardResponse = await drawCards(deckId, count);
+  console.log(cardResponse);
+  dispatch({
+    type: HIT_DEALER,
+    payload: {
+      card: cardResponse.cards[0],
+      remaining: cardResponse.remaining,
+    },
+  });
+};
+
+export const playerStandAction = (dispatch) => {
   return dispatch({
-    type: PLAYER_BUST,
+    type: PLAYER_STAND,
     payload: true,
   });
 };
 
-export const playerBlackjack = (dispatch) => {
+export const playerLossAction = (dispatch) => {
+  return dispatch({
+    type: PLAYER_LOSS,
+    payload: true,
+  });
+};
+
+export const playerBlackjackAction = (dispatch) => {
   return dispatch({
     type: PLAYER_BLACKJACK,
+    payload: true,
+  });
+};
+
+export const playerWinAction = (dispatch) => {
+  return dispatch({
+    type: PLAYER_WIN,
+    payload: true,
+  });
+};
+
+export const playerPushAction = (dispatch) => {
+  return dispatch({
+    type: PLAYER_PUSH,
     payload: true,
   });
 };

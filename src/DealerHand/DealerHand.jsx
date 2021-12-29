@@ -1,0 +1,61 @@
+import React, { useEffect } from "react";
+import Cards from "../Cards";
+import { useDispatch } from "react-redux";
+import {
+  dealerDrawAction,
+  playerWinAction,
+  playerPushAction,
+  playerLossAction,
+} from "../actions";
+
+const DealerHand = ({ ...props }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (props.cards.length > 2) {
+      checkForBust(props.total);
+    }
+    if (props.playerStand === true) {
+      determineDealerHit(props.total);
+    }
+  }, [props.total, props.cards, props.playerStand]);
+
+  const checkForBust = (total) => {
+    if (total > 21) {
+      return dispatch(playerWinAction);
+    }
+  };
+
+  const determineRoundResults = (playerTotal, dealerTotal) => {
+    if (playerTotal === dealerTotal) {
+      return dispatch(playerPushAction);
+    }
+    if (playerTotal > dealerTotal) {
+      return dispatch(playerWinAction);
+    }
+    if (dealerTotal > playerTotal && dealerTotal <= 21) {
+      return dispatch(playerLossAction);
+    }
+  };
+
+  const determineDealerHit = (total) => {
+    if (total >= 17) {
+      return determineRoundResults(props.playerTotal, props.total);
+    }
+    dispatch(dealerDrawAction(props.deckId, 1));
+  };
+  //   const checkForShowingAce = (cards) => {
+  //     if (cards[1] === "ACE") {
+  //       return dispatch(askForInsurance);
+  //     }
+  //   };
+
+  return (
+    <div>
+      {props.cards.map((card) => {
+        return <Cards key={card.code} card={card} />;
+      })}
+    </div>
+  );
+};
+export default DealerHand;

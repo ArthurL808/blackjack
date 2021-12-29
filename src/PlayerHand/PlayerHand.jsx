@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Cards from "../Cards";
 import { useDispatch } from "react-redux";
-import { playerBust, playerBlackjack } from "../actions";
-const Hands = ({ ...props }) => {
+import { playerLossAction, playerBlackjackAction } from "../actions";
+const PlayerHand = ({ ...props }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -12,13 +12,13 @@ const Hands = ({ ...props }) => {
 
   const checkForBust = (total) => {
     if (total > 21) {
-      dispatch(playerBust);
+      dispatch(playerLossAction);
     }
   };
 
   const checkForBlackjack = (cards, total) => {
     if (cards.length === 2 && total === 21) {
-      return dispatch(playerBlackjack);
+      return dispatch(playerBlackjackAction);
     }
   };
   return (
@@ -30,4 +30,4 @@ const Hands = ({ ...props }) => {
     </div>
   );
 };
-export default Hands;
+export default PlayerHand;

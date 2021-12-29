@@ -4,6 +4,8 @@ export const selectDeck = (state) => state.deck;
 
 export const selectRoundResults = (state) => state.playerLost;
 
+export const selectPlayerStand = (state) => state.playerStand;
+
 export const selectPlayersCards = (state) => state.playersCards;
 
 export const selectDealersCards = (state) => state.dealersCards;
@@ -33,7 +35,7 @@ export const selectPlayerTotal = createSelector(selectPlayersCards, (cards) => {
   return total;
 });
 
-export const selectDealerTotal = createSelector(selectPlayersCards, (cards) => {
+export const selectDealerTotal = createSelector(selectDealersCards, (cards) => {
   let sortedCards = [...cards].sort((a, b) => {
     if (a.value === "ACE") {
       return 1;
