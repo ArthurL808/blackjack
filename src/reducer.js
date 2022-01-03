@@ -14,11 +14,13 @@ const initalState = {
   deck: { deck_id: "", remaining: 0, shuffled: false, success: false },
   playersCards: [],
   dealersCards: [],
-  playerWin: false,
-  playerLost: false,
-  playerBlackjack: false,
   playerStand: false,
-  playerPush: false,
+  roundResults: {
+    playerWin: false,
+    playerLoss: false,
+    playerBlackjack: false,
+    playerPush: false,
+  },
 };
 
 export const reducer = (state = initalState, action) => {
@@ -48,9 +50,21 @@ export const reducer = (state = initalState, action) => {
         dealersCards: [...state.dealersCards, action.payload.card],
       };
     case PLAYER_LOSS:
-      return { ...state, playerLost: action.payload };
+      return {
+        ...state,
+        roundResults: {
+          ...state.roundResults,
+          playerLoss: action.payload,
+        },
+      };
     case PLAYER_BLACKJACK:
-      return { ...state, playerBlackjack: action.payload };
+      return {
+        ...state,
+        roundResults: {
+          ...state.roundResults,
+          playerBlackjack: action.payload,
+        },
+      };
     case PLAYER_STAND:
       return {
         ...state,
@@ -59,10 +73,13 @@ export const reducer = (state = initalState, action) => {
     case PLAYER_WIN:
       return {
         ...state,
-        playerWin: action.payload,
+        roundResults: { ...state.roundResults, playerWin: action.payload },
       };
     case PLAYER_PUSH:
-      return { ...state, playerPush: action.payload };
+      return {
+        ...state,
+        roundResults: { ...state.roundResults, playerPush: action.payload },
+      };
     default:
       return state;
   }

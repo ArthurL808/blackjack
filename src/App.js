@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PlayerHand from "./PlayerHand";
 import DealerHand from "./DealerHand";
+import RoundResults from "./RoundResults/RoundResults";
 import "./App.css";
 import {
   dealHandsAction,
@@ -16,6 +17,7 @@ import {
   selectPlayerTotal,
   selectDealerTotal,
   selectPlayerStand,
+  selectRoundResults,
 } from "./selectors";
 
 const App = () => {
@@ -26,12 +28,12 @@ const App = () => {
   const dealersCards = useSelector(selectDealersCards);
   const playerTotal = useSelector(selectPlayerTotal);
   const dealerTotal = useSelector(selectDealerTotal);
+  const roundResults = useSelector(selectRoundResults);
   const playerStand = useSelector(selectPlayerStand);
 
   useEffect(() => {
     dispatch(getDeckAction());
   }, []);
-
 
   return (
     <div className="App">
@@ -66,6 +68,8 @@ const App = () => {
         playerTotal={playerTotal}
       />
       <PlayerHand cards={playersCards} total={playerTotal} />
+
+      <RoundResults roundResults={roundResults} />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 
 export const selectDeck = (state) => state.deck;
 
-export const selectRoundResults = (state) => state.playerLost;
+export const selectRoundResults = (state) => state.roundResults;
 
 export const selectPlayerStand = (state) => state.playerStand;
 
