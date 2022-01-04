@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PlayerHand from "./PlayerHand";
 import DealerHand from "./DealerHand";
 import RoundResults from "./RoundResults/RoundResults";
+import BetWindow from "./BetWindow";
 import "./App.css";
 import {
   dealHandsAction,
@@ -68,7 +69,7 @@ const App = () => {
         playerTotal={playerTotal}
       />
       <PlayerHand cards={playersCards} total={playerTotal} />
-
+      <BetWindow />
       <RoundResults roundResults={roundResults} />
     </div>
   );

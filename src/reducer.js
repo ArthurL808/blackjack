@@ -8,11 +8,14 @@ import {
   PLAYER_STAND,
   PLAYER_WIN,
   PLAYER_PUSH,
+  PLACE_BET,
 } from "./actions";
 
 const initalState = {
   deck: { deck_id: "", remaining: 0, shuffled: false, success: false },
   playersCards: [],
+  playerCurrency: 1000,
+  currentBet: 0,
   dealersCards: [],
   playerStand: false,
   roundResults: {
@@ -27,6 +30,12 @@ export const reducer = (state = initalState, action) => {
   switch (action.type) {
     case LOAD_DECK:
       return { ...state, deck: action.payload };
+    case PLACE_BET:
+      return {
+        ...state,
+        playerCurrency: state.playerCurrency - action.payload,
+        currentBet: action.payload,
+      };
     case DEAL_HANDS:
       return {
         ...state,

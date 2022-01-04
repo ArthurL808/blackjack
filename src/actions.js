@@ -9,6 +9,7 @@ export const HIT_DEALER = "HIT_DEALER";
 export const PLAYER_STAND = "PLAYER_STAND";
 export const PLAYER_WIN = "PLAYER_WIN";
 export const PLAYER_PUSH = "PLAYER_PUSH";
+export const PLACE_BET = "PLACE_BET";
 
 export const getDeckAction = () => (dispatch) => {
   axios
@@ -59,13 +60,19 @@ const drawCards = (deckId, count) => {
 
 export const dealerDrawAction = (deckId, count) => async (dispatch) => {
   let cardResponse = await drawCards(deckId, count);
-  console.log(cardResponse);
   dispatch({
     type: HIT_DEALER,
     payload: {
       card: cardResponse.cards[0],
       remaining: cardResponse.remaining,
     },
+  });
+};
+
+export const placeBetAction = (bet) => (dispatch) => {
+  dispatch({
+    type: PLACE_BET,
+    payload: bet,
   });
 };
 
