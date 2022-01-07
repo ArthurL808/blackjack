@@ -44,7 +44,7 @@ const BetWindow = ({ ...props }) => {
       <button
         onClick={() => {
           if (bet <= 0) {
-            alert("Please place a bet.");
+            return alert("Please place a bet.");
           }
           dispatch(placeBetAction(bet));
           setBet(0);

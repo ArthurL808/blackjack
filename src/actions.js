@@ -10,6 +10,7 @@ export const PLAYER_STAND = "PLAYER_STAND";
 export const PLAYER_WIN = "PLAYER_WIN";
 export const PLAYER_PUSH = "PLAYER_PUSH";
 export const PLACE_BET = "PLACE_BET";
+export const START_BETTING = "START_BETTING";
 
 export const getDeckAction = () => (dispatch) => {
   axios
@@ -87,7 +88,7 @@ export const playerLossAction = (dispatch) => {
   return dispatch({
     type: PLAYER_LOSS,
     payload: true,
-    message: "Sorry you've lost $"
+    message: "Sorry you've lost $",
   });
 };
 
@@ -95,7 +96,7 @@ export const playerBlackjackAction = (dispatch) => {
   return dispatch({
     type: PLAYER_BLACKJACK,
     payload: true,
-    message: 'Blackjack! you have won $'
+    message: "Blackjack! you have won $",
   });
 };
 
@@ -103,7 +104,7 @@ export const playerWinAction = (dispatch) => {
   return dispatch({
     type: PLAYER_WIN,
     payload: true,
-    message: 'Congratulations you have won $'
+    message: "Congratulations you have won $",
   });
 };
 
@@ -111,6 +112,12 @@ export const playerPushAction = (dispatch) => {
   return dispatch({
     type: PLAYER_PUSH,
     payload: true,
-    message: "Nothing gained, Nothing loss you have pushed with the dealer."
+    message: "Nothing gained, Nothing loss you have pushed with the dealer.",
   });
 };
+
+export const startBettingRoundAction = (dispatch) =>
+  dispatch({
+    type: START_BETTING,
+    payload: true,
+  });

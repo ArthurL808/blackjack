@@ -9,6 +9,7 @@ import {
   PLAYER_WIN,
   PLAYER_PUSH,
   PLACE_BET,
+  START_BETTING,
 } from "./actions";
 
 const initalState = {
@@ -29,6 +30,19 @@ export const reducer = (state = initalState, action) => {
   switch (action.type) {
     case LOAD_DECK:
       return { ...state, deck: action.payload };
+    case START_BETTING:
+      return {
+        ...state,
+        playersCards: [],
+        dealersCards: [],
+        currentBet: 0,
+        playerStand: false,
+        bettingRound: action.payload,
+        roundResults: {
+          roundEnd: false,
+          message: "",
+        },
+      };
     case PLACE_BET:
       return {
         ...state,
