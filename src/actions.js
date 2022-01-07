@@ -87,6 +87,7 @@ export const playerLossAction = (dispatch) => {
   return dispatch({
     type: PLAYER_LOSS,
     payload: true,
+    message: "Sorry you've lost $"
   });
 };
 
@@ -94,6 +95,7 @@ export const playerBlackjackAction = (dispatch) => {
   return dispatch({
     type: PLAYER_BLACKJACK,
     payload: true,
+    message: 'Blackjack! you have won $'
   });
 };
 
@@ -101,6 +103,7 @@ export const playerWinAction = (dispatch) => {
   return dispatch({
     type: PLAYER_WIN,
     payload: true,
+    message: 'Congratulations you have won $'
   });
 };
 
@@ -108,5 +111,6 @@ export const playerPushAction = (dispatch) => {
   return dispatch({
     type: PLAYER_PUSH,
     payload: true,
+    message: "Nothing gained, Nothing loss you have pushed with the dealer."
   });
 };

@@ -4,6 +4,12 @@ export const selectDeck = (state) => state.deck;
 
 export const selectRoundResults = (state) => state.roundResults;
 
+export const selectBettingRound = (state) => state.bettingRound;
+
+export const selectPlayerCurrency = (state) => state.playerCurrency;
+
+export const selectCurrentBet = (state) => state.currentBet;
+
 export const selectPlayerStand = (state) => state.playerStand;
 
 export const selectPlayersCards = (state) => state.playersCards;

@@ -1,2 +1,2 @@
-import PlayerHand from "./PlayerHand";
+import PlayerHand from "./playerHand";
 export default PlayerHand;

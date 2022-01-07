@@ -18,11 +18,10 @@ const initalState = {
   currentBet: 0,
   dealersCards: [],
   playerStand: false,
+  bettingRound: true,
   roundResults: {
-    playerWin: false,
-    playerLoss: false,
-    playerBlackjack: false,
-    playerPush: false,
+    roundEnd: false,
+    message: "",
   },
 };
 
@@ -33,6 +32,7 @@ export const reducer = (state = initalState, action) => {
     case PLACE_BET:
       return {
         ...state,
+        bettingRound: false,
         playerCurrency: state.playerCurrency - action.payload,
         currentBet: action.payload,
       };
@@ -63,7 +63,8 @@ export const reducer = (state = initalState, action) => {
         ...state,
         roundResults: {
           ...state.roundResults,
-          playerLoss: action.payload,
+          roundEnd: action.payload,
+          message: action.message + state.currentBet,
         },
       };
     case PLAYER_BLACKJACK:
@@ -71,8 +72,11 @@ export const reducer = (state = initalState, action) => {
         ...state,
         roundResults: {
           ...state.roundResults,
-          playerBlackjack: action.payload,
+          roundEnd: action.payload,
+          message: action.message + state.currentBet * 1.5,
         },
+        playerCurrency:
+          state.playerCurrency + (state.currentBet + state.currentBet * 1.5),
       };
     case PLAYER_STAND:
       return {
@@ -82,12 +86,22 @@ export const reducer = (state = initalState, action) => {
     case PLAYER_WIN:
       return {
         ...state,
-        roundResults: { ...state.roundResults, playerWin: action.payload },
+        roundResults: {
+          ...state.roundResults,
+          roundEnd: action.payload,
+          message: action.message + state.currentBet,
+        },
+        playerCurrency: state.playerCurrency + state.currentBet * 2,
       };
     case PLAYER_PUSH:
       return {
         ...state,
-        roundResults: { ...state.roundResults, playerPush: action.payload },
+        roundResults: {
+          ...state.roundResults,
+          roundEnd: action.payload,
+          message: action.message,
+        },
+        playerCurrency: state.playerCurrency + state.currentBet,
       };
     default:
       return state;

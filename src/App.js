@@ -2,15 +2,10 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PlayerHand from "./PlayerHand";
 import DealerHand from "./DealerHand";
-import RoundResults from "./RoundResults/RoundResults";
+import RoundResults from "./RoundResults";
 import BetWindow from "./BetWindow";
 import "./App.css";
-import {
-  dealHandsAction,
-  hitUserAction,
-  getDeckAction,
-  playerStandAction,
-} from "./actions";
+import { hitUserAction, getDeckAction, playerStandAction } from "./actions";
 import {
   selectDeck,
   selectPlayersCards,
@@ -19,6 +14,7 @@ import {
   selectDealerTotal,
   selectPlayerStand,
   selectRoundResults,
+  selectBettingRound,
 } from "./selectors";
 
 const App = () => {
@@ -31,6 +27,7 @@ const App = () => {
   const dealerTotal = useSelector(selectDealerTotal);
   const roundResults = useSelector(selectRoundResults);
   const playerStand = useSelector(selectPlayerStand);
+  const bettingRound = useSelector(selectBettingRound);
 
   useEffect(() => {
     dispatch(getDeckAction());
@@ -39,37 +36,39 @@ const App = () => {
   return (
     <div className="App">
       <h3>Black Jack App</h3>
-      <button
-        onClick={() => {
-          dispatch(dealHandsAction(deck.deck_id));
-        }}
-      >
-        Deal
-      </button>
-      <button
-        onClick={() => {
-          dispatch(hitUserAction(deck.deck_id, 1));
-        }}
-      >
-        HIT
-      </button>
-      <button
-        onClick={() => {
-          dispatch(playerStandAction);
-        }}
-      >
-        STAND
-      </button>
-      <p>Cards remaining: {deck.remaining}</p>
-      <DealerHand
-        deckId={deck.deck_id}
-        total={dealerTotal}
-        cards={dealersCards}
-        playerStand={playerStand}
-        playerTotal={playerTotal}
-      />
-      <PlayerHand cards={playersCards} total={playerTotal} />
-      <BetWindow />
+      {bettingRound ? (
+        <BetWindow deckId={deck.deck_id} />
+      ) : (
+        <div>
+          <div>
+            <button
+              onClick={() => {
+                dispatch(hitUserAction(deck.deck_id, 1));
+              }}
+            >
+              HIT
+            </button>
+
+            <button
+              onClick={() => {
+                dispatch(playerStandAction);
+              }}
+            >
+              STAND
+            </button>
+          </div>
+
+          <p>Cards remaining: {deck.remaining}</p>
+          <DealerHand
+            deckId={deck.deck_id}
+            total={dealerTotal}
+            cards={dealersCards}
+            playerStand={playerStand}
+            playerTotal={playerTotal}
+          />
+          <PlayerHand cards={playersCards} total={playerTotal} />
+        </div>
+      )}
       <RoundResults roundResults={roundResults} />
     </div>
   );

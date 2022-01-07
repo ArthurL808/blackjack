@@ -1,2 +1,2 @@
-import BetWindow from "./BetWindow";
+import BetWindow from "./betWindow";
 export default BetWindow;

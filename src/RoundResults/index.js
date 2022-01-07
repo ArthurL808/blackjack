@@ -1,2 +1,2 @@
-import RoundResults from './RoundResults'
-export default RoundResults
+import RoundResults from "./roundResults";
+export default RoundResults;
