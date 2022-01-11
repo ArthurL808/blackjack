@@ -5,7 +5,12 @@ import DealerHand from "./DealerHand";
 import RoundResults from "./RoundResults";
 import BetWindow from "./BetWindow";
 import "./App.css";
-import { hitUserAction, getDeckAction, playerStandAction } from "./actions";
+import {
+  hitUserAction,
+  getDeckAction,
+  playerStandAction,
+  playerDoubleDownAction,
+} from "./actions";
 import {
   selectDeck,
   selectPlayersCards,
@@ -15,6 +20,7 @@ import {
   selectPlayerStand,
   selectRoundResults,
   selectBettingRound,
+  selectPlayerSplit,
 } from "./selectors";
 
 const App = () => {
@@ -28,11 +34,13 @@ const App = () => {
   const roundResults = useSelector(selectRoundResults);
   const playerStand = useSelector(selectPlayerStand);
   const bettingRound = useSelector(selectBettingRound);
+  const playerSplit = useSelector(selectPlayerSplit);
 
   useEffect(() => {
     dispatch(getDeckAction());
   }, []);
 
+  console.log(playersCards);
   return (
     <div className="App">
       <h3>Black Jack App</h3>
@@ -56,6 +64,19 @@ const App = () => {
             >
               STAND
             </button>
+            {playersCards.length > 2 ? (
+              ""
+            ) : (
+              <button
+                onClick={() => {
+                  dispatch(playerDoubleDownAction(deck.deck_id));
+                }}
+              >
+                Double Down
+              </button>
+            )}
+
+            {playerSplit ? <button>Split</button> : ""}
           </div>
 
           <p>Cards remaining: {deck.remaining}</p>

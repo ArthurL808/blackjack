@@ -11,6 +11,7 @@ export const PLAYER_WIN = "PLAYER_WIN";
 export const PLAYER_PUSH = "PLAYER_PUSH";
 export const PLACE_BET = "PLACE_BET";
 export const START_BETTING = "START_BETTING";
+export const DOUBLE_DOWN = "DOUBLE_DOWN";
 
 export const getDeckAction = () => (dispatch) => {
   axios
@@ -57,6 +58,14 @@ const drawCards = (deckId, count) => {
     .catch((err) => {
       console.error(err);
     });
+};
+
+export const playerDoubleDownAction = (deckId) => async (dispatch) => {
+  const cardResponse = await drawCards(deckId, 1);
+  dispatch({
+    type: DOUBLE_DOWN,
+    payload: cardResponse.cards[0],
+  });
 };
 
 export const dealerDrawAction = (deckId, count) => async (dispatch) => {

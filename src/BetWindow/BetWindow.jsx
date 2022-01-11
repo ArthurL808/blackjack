@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { placeBetAction, dealHandsAction } from "../actions";
 import { selectPlayerCurrency } from "../selectors";
 import { useDispatch } from "react-redux";
+
 const BetWindow = ({ ...props }) => {
   const dispatch = useDispatch();
   const [bet, setBet] = useState(0);
@@ -45,6 +46,9 @@ const BetWindow = ({ ...props }) => {
         onClick={() => {
           if (bet <= 0) {
             return alert("Please place a bet.");
+          }
+          if (playerCurrency - bet < 0) {
+            return alert("You don't have the money to place that bet.");
           }
           dispatch(placeBetAction(bet));
           setBet(0);

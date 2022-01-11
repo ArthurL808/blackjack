@@ -14,6 +14,16 @@ export const selectPlayerStand = (state) => state.playerStand;
 
 export const selectPlayersCards = (state) => state.playersCards;
 
+export const selectPlayerSplit = (state) => {
+  if (state.playersCards.length < 2) {
+    return false;
+  }
+  if (state.playersCards[0].value === state.playersCards[1].value) {
+    return true;
+  }
+  return false;
+};
+
 export const selectDealersCards = (state) => state.dealersCards;
 
 export const selectPlayerTotal = createSelector(selectPlayersCards, (cards) => {

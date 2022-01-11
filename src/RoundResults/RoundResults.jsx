@@ -3,11 +3,11 @@ import { useDispatch } from "react-redux";
 import { startBettingRoundAction } from "../actions";
 
 const RoundResults = ({ ...props }) => {
-  
+
   const dispatch = useDispatch();
 
   return props.roundResults.roundEnd ? (
-    <div className="betWindow">
+    <div>
       {props.roundResults.message}
 
       <button
