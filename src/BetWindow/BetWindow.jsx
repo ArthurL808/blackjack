@@ -53,14 +53,14 @@ const BetWindow = ({ ...props }) => {
           }
           dispatch(placeBetAction(bet));
           setBet(0);
-          dispatch(dealHandsAction(props.deckId));
+          dispatch(dealHandsAction(props.deck));
         }}
       >
         Deal
       </button>
       <button onClick={()=>{
         setBet(0)
-      }}>Clear</button>
+      }}>Clear Bet</button>
     </div>
   );
 };

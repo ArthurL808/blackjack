@@ -7,7 +7,6 @@ const DoubleDown = ({ ...props}) => {
     const dispatch = useDispatch();
     const currentBet = useSelector(state => state.currentBet)
     const playerCurrency = useSelector(state => state.playerCurrency)
-
     return (
         <>
         {props.playersCards.length > 2 ? (
@@ -15,8 +14,8 @@ const DoubleDown = ({ ...props}) => {
             ) : (
                 <button
                 onClick={() => {
-                    currentBet * 2 > playerCurrency ? alert('Not enough funds for double down.') :
-                    dispatch(playerDoubleDownAction(props.deck_id));
+                    currentBet > playerCurrency ? alert('Not enough funds for double down.') :
+                    dispatch(playerDoubleDownAction(props.deckId));
                 }}
                 >
               Double Down

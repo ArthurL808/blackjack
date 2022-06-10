@@ -5,12 +5,12 @@ import {hitUserAction, playerStandAction} from '../actions'
 
 const GameControls = ({ ...props }) => {
     const dispatch = useDispatch()
-
+    
     return (
         <div>
             <button
               onClick={() => {
-                dispatch(hitUserAction(props.deckId, 1));
+                dispatch(hitUserAction(props.deck, 1));
               }}
             >
               HIT
@@ -23,9 +23,8 @@ const GameControls = ({ ...props }) => {
             >
               STAND
             </button>
-            <DoubleDown deck_id={props.deckId} playersCards={props.playersCards}/>
-
-            {/* {playerSplit ? <button>Split</button> : ""} */}
+            <DoubleDown deckId={props.deck} playersCards={props.playersCards}/>
+            
           </div>
     )
 }

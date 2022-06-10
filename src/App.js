@@ -10,7 +10,6 @@ import {
   selectDeck,
   selectRoundResults,
   selectBettingRound,
-  selectPlayerSplit,
 } from "./selectors";
 
 const App = () => {
@@ -19,7 +18,7 @@ const App = () => {
   const deck = useSelector(selectDeck);
   const roundResults = useSelector(selectRoundResults);
   const bettingRound = useSelector(selectBettingRound);
-  // const playerSplit = useSelector(selectPlayerSplit);
+
 
   useEffect(() => {
     dispatch(getDeckAction());
@@ -28,12 +27,12 @@ const App = () => {
   return (
     <div className="App">
       <h3>Black Jack App</h3>
+      <RoundResults roundResults={roundResults} />
       {bettingRound ? (
-        <BetWindow deckId={deck.deck_id} />
+        <BetWindow deck={deck} />
       ) : (
         <GameBoard deck={deck}/>
       )}
-      <RoundResults roundResults={roundResults} />
     </div>
   );
 };

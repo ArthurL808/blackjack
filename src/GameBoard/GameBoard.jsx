@@ -22,19 +22,19 @@ const GameBoard = ({...props}) =>{
         <div>
           <p>Cards remaining: {props.deck.remaining}</p>
           <DealerHand
-            deckId={props.deck.deck_id}
+            deck={props.deck}
             total={dealerTotal}
             cards={dealersCards}
             playerStand={playerStand}
             playerTotal={playerTotal}
           />
           <PlayerHand
-           cards={playersCards} 
-           total={playerTotal} 
-           />
+            cards={playersCards} 
+            total={playerTotal} 
+            />
            <GameControls
             playersCards={playersCards}
-            deckId={props.deck.deck_id}/>
+            deck={props.deck}/>
         </div>
     )
 }

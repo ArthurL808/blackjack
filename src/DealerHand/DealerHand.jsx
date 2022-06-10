@@ -45,13 +45,8 @@ const DealerHand = ({ ...props }) => {
     if (total >= 17) {
       return determineRoundResults(props.playerTotal, props.total);
     }
-    dispatch(dealerDrawAction(props.deckId, 1));
+    dispatch(dealerDrawAction(props.deck, 1));
   };
-  //   const checkForShowingAce = (cards) => {
-  //     if (cards[1] === "ACE") {
-  //       return dispatch(askForInsurance);
-  //     }
-  //   };
 
   return (
     <>
