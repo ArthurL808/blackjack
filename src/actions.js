@@ -66,7 +66,7 @@ const drawCards = async (deck, count) => {
 const reshuffleDeck = (deck)=>{
   return axios.get(`https://deckofcardsapi.com/api/deck/${deck.deck_id}/shuffle/`)
   .then((res) => {
-    console.log(res)
+    return res.data
   }).catch((err)=>{
     console.log(err);
     console.error(err);
