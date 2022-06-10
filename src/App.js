@@ -4,12 +4,12 @@ import PlayerHand from "./PlayerHand";
 import DealerHand from "./DealerHand";
 import RoundResults from "./RoundResults";
 import BetWindow from "./BetWindow";
+import DoubleDown from "./DoubleDown";
 import "./App.css";
 import {
   hitUserAction,
   getDeckAction,
   playerStandAction,
-  playerDoubleDownAction,
 } from "./actions";
 import {
   selectDeck,
@@ -63,17 +63,7 @@ const App = () => {
             >
               STAND
             </button>
-            {playersCards.length > 2 ? (
-              ""
-            ) : (
-              <button
-                onClick={() => {
-                  dispatch(playerDoubleDownAction(deck.deck_id));
-                }}
-              >
-                Double Down
-              </button>
-            )}
+            <DoubleDown deck_id={deck.deck_id} playersCards={playersCards}/>
 
             {playerSplit ? <button>Split</button> : ""}
           </div>
