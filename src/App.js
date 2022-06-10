@@ -31,7 +31,7 @@ const App = () => {
       {bettingRound ? (
         <BetWindow deck={deck} />
       ) : (
-        <GameBoard deck={deck}/>
+        <GameBoard deck={deck} roundEnd={roundResults.roundEnd}/>
       )}
     </div>
   );

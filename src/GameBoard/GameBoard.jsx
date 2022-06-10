@@ -32,9 +32,11 @@ const GameBoard = ({...props}) =>{
             cards={playersCards} 
             total={playerTotal} 
             />
-           <GameControls
+            {!props.roundEnd ?  <GameControls
+            roundEnd={props.roundEnd}
             playersCards={playersCards}
-            deck={props.deck}/>
+            deck={props.deck}/> : null }
+          
         </div>
     )
 }
