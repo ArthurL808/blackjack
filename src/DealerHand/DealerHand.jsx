@@ -21,7 +21,7 @@ const DealerHand = ({ ...props }) => {
       setHideCard(false)
       determineDealerHit(props.total);
     }
-  }, [props.total, props.cards, props.playerStand]);
+  }, [props.total, props.cards, props.playerStand]);// eslint-disable-line react-hooks/exhaustive-deps
 
   const checkForBust = (total) => {
     if (total > 21) {

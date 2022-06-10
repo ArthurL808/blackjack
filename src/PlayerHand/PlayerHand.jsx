@@ -8,7 +8,7 @@ const PlayerHand = ({ ...props }) => {
   useEffect(() => {
     checkForBlackjack(props.cards, props.total);
     checkForBust(props.total);
-  }, [props.total, props.cards]);
+  }, [props.total, props.cards]);// eslint-disable-line react-hooks/exhaustive-deps
 
   const checkForBust = (total) => {
     if (total > 21) {

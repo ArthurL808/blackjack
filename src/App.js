@@ -22,7 +22,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getDeckAction());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">
