@@ -54,15 +54,17 @@ const DealerHand = ({ ...props }) => {
   //   };
 
   return (
+    <>
+      {hideCard ? null : <p>{props.total}</p>} 
     <div className={Styles.dealerHand} > 
       {props.cards.map((card,i) => {
-        console.log(hideCard,i)
         if(i === 1 && hideCard === true){
           return  <Cards key={card.code} card={card} hideCard={hideCard}/>
         }
         return <Cards key={card.code} card={card} />;
       })}
     </div>
+      </>
   );
 };
 export default DealerHand;
