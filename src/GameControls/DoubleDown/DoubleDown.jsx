@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector,useDispatch} from 'react-redux'
-import {playerDoubleDownAction} from '../actions'
+import {playerDoubleDownAction} from '../../actions'
 
 
 const DoubleDown = ({ ...props}) => {
@@ -12,9 +12,10 @@ const DoubleDown = ({ ...props}) => {
         <>
         {props.playersCards.length > 2 ? (
             null
-            ) : currentBet * 2 > playerCurrency ? null : (
+            ) : (
                 <button
                 onClick={() => {
+                    currentBet * 2 > playerCurrency ? alert('Not enough funds for double down.') :
                     dispatch(playerDoubleDownAction(props.deck_id));
                 }}
                 >

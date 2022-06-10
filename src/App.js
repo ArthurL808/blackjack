@@ -1,23 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import PlayerHand from "./PlayerHand";
-import DealerHand from "./DealerHand";
 import RoundResults from "./RoundResults";
 import BetWindow from "./BetWindow";
-import DoubleDown from "./DoubleDown";
+import GameBoard from "./GameBoard";
+
 import "./App.css";
-import {
-  hitUserAction,
-  getDeckAction,
-  playerStandAction,
-} from "./actions";
+import {getDeckAction} from "./actions";
 import {
   selectDeck,
-  selectPlayersCards,
-  selectDealersCards,
-  selectPlayerTotal,
-  selectDealerTotal,
-  selectPlayerStand,
   selectRoundResults,
   selectBettingRound,
   selectPlayerSplit,
@@ -27,14 +17,9 @@ const App = () => {
   const dispatch = useDispatch();
 
   const deck = useSelector(selectDeck);
-  const playersCards = useSelector(selectPlayersCards);
-  const dealersCards = useSelector(selectDealersCards);
-  const playerTotal = useSelector(selectPlayerTotal);
-  const dealerTotal = useSelector(selectDealerTotal);
   const roundResults = useSelector(selectRoundResults);
-  const playerStand = useSelector(selectPlayerStand);
   const bettingRound = useSelector(selectBettingRound);
-  const playerSplit = useSelector(selectPlayerSplit);
+  // const playerSplit = useSelector(selectPlayerSplit);
 
   useEffect(() => {
     dispatch(getDeckAction());
@@ -46,38 +31,7 @@ const App = () => {
       {bettingRound ? (
         <BetWindow deckId={deck.deck_id} />
       ) : (
-        <div>
-          <div>
-            <button
-              onClick={() => {
-                dispatch(hitUserAction(deck.deck_id, 1));
-              }}
-            >
-              HIT
-            </button>
-
-            <button
-              onClick={() => {
-                dispatch(playerStandAction);
-              }}
-            >
-              STAND
-            </button>
-            <DoubleDown deck_id={deck.deck_id} playersCards={playersCards}/>
-
-            {playerSplit ? <button>Split</button> : ""}
-          </div>
-
-          <p>Cards remaining: {deck.remaining}</p>
-          <DealerHand
-            deckId={deck.deck_id}
-            total={dealerTotal}
-            cards={dealersCards}
-            playerStand={playerStand}
-            playerTotal={playerTotal}
-          />
-          <PlayerHand cards={playersCards} total={playerTotal} />
-        </div>
+        <GameBoard deck={deck}/>
       )}
       <RoundResults roundResults={roundResults} />
     </div>

@@ -16,9 +16,9 @@ import {
 const initalState = {
   deck: { deck_id: "", remaining: 0, shuffled: false, success: false },
   playersCards: [],
+  dealersCards: [],
   playerCurrency: 1000,
   currentBet: 0,
-  dealersCards: [],
   playerStand: false,
   bettingRound: true,
   roundResults: {
