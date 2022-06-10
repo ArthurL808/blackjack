@@ -1,2 +1,2 @@
-import Cards from './cards'
+import Cards from './Cards'
 export default Cards

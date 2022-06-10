@@ -40,7 +40,6 @@ const App = () => {
     dispatch(getDeckAction());
   }, []);
 
-  console.log(playersCards);
   return (
     <div className="App">
       <h3>Black Jack App</h3>

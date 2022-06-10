@@ -1,0 +1,8 @@
+.hideCard{
+    visibility: hidden;
+}
+.cardBack{
+    background-color: green;
+    width: fit-content;
+    border-radius: 20px;
+}

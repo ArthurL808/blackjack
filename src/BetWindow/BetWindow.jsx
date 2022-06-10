@@ -12,35 +12,36 @@ const BetWindow = ({ ...props }) => {
   return (
     <div>
       Bet Window
-      <h4>Player's wallet: {playerCurrency - bet}</h4>
-      <h5>Current Bet: {bet}</h5>
+      <h4>Player's wallet: ${playerCurrency - bet}</h4>
+      <h5>Current Bet: ${bet}</h5>
       <button
         onClick={() => {
-          setBet(50);
+          bet + 50 > playerCurrency ? alert("Not enought funds.") : setBet(bet + 50);
         }}
       >
-        50
+        $50
       </button>
       <button
         onClick={() => {
-          setBet(100);
+         bet + 100 > playerCurrency ? alert("Not enought funds.") : setBet(bet + 100);
+          
         }}
       >
-        100
+        $100
       </button>
       <button
         onClick={() => {
-          setBet(250);
+          bet + 250 > playerCurrency ? alert("Not enought funds.") : setBet(bet + 250);
         }}
       >
-        250
+        $250
       </button>
       <button
         onClick={() => {
-          setBet(500);
+          bet + 500 > playerCurrency ? alert("Not enought funds.") : setBet(bet + 500);
         }}
       >
-        500
+        $500
       </button>
       <button
         onClick={() => {
@@ -55,8 +56,11 @@ const BetWindow = ({ ...props }) => {
           dispatch(dealHandsAction(props.deckId));
         }}
       >
-        Confirm Bet.
+        Deal
       </button>
+      <button onClick={()=>{
+        setBet(0)
+      }}>Clear</button>
     </div>
   );
 };

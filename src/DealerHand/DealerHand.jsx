@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
+import Styles from './DealerHand.module.css';
 import Cards from "../Cards";
 import { useDispatch } from "react-redux";
 import {
@@ -10,12 +11,14 @@ import {
 
 const DealerHand = ({ ...props }) => {
   const dispatch = useDispatch();
+  const [hideCard,setHideCard] = useState(true);
 
   useEffect(() => {
     if (props.cards.length > 2) {
       checkForBust(props.total);
     }
     if (props.playerStand === true) {
+      setHideCard(false)
       determineDealerHit(props.total);
     }
   }, [props.total, props.cards, props.playerStand]);
@@ -51,8 +54,12 @@ const DealerHand = ({ ...props }) => {
   //   };
 
   return (
-    <div>
-      {props.cards.map((card) => {
+    <div className={Styles.dealerHand} > 
+      {props.cards.map((card,i) => {
+        console.log(hideCard,i)
+        if(i === 1 && hideCard === true){
+          return  <Cards key={card.code} card={card} hideCard={hideCard}/>
+        }
         return <Cards key={card.code} card={card} />;
       })}
     </div>

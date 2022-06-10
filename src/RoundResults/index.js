@@ -1,2 +1,2 @@
-import RoundResults from "./roundResults";
+import RoundResults from "./RoundResults";
 export default RoundResults;
