@@ -27,9 +27,9 @@ export const getDeckAction = () => (dispatch) => {
     });
 };
 
-export const dealHandsAction = (deckId) => async (dispatch) => {
-  let playerCardsResponse = await drawCards(deckId, 2);
-  let dealersCardsResponse = await drawCards(deckId, 2);
+export const dealHandsAction = (deck) => async (dispatch) => {
+  let playerCardsResponse = await drawCards(deck, 2);
+  let dealersCardsResponse = await drawCards(deck, 2);
   dispatch({
     type: DEAL_HANDS,
     payload: {
@@ -40,8 +40,8 @@ export const dealHandsAction = (deckId) => async (dispatch) => {
   });
 };
 
-export const hitUserAction = (deckId, count) => async (dispatch) => {
-  let cardResponse = await drawCards(deckId, count);
+export const hitUserAction = (deck, count) => async (dispatch) => {
+  let cardResponse = await drawCards(deck, count);
 
   dispatch({
     type: HIT_USER,
@@ -49,9 +49,12 @@ export const hitUserAction = (deckId, count) => async (dispatch) => {
   });
 };
 
-const drawCards = (deckId, count) => {
-  return axios
-    .get(`http://deckofcardsapi.com/api/deck/${deckId}/draw/?count=${count}`)
+const drawCards = async (deck, count) => {
+  if(deck.remaining <= count) {
+   await reshuffleDeck(deck)
+  }
+ return await axios
+    .get(`http://deckofcardsapi.com/api/deck/${deck.deck_id}/draw/?count=${count}`)
     .then((res) => {
       return res.data;
     })
@@ -60,16 +63,26 @@ const drawCards = (deckId, count) => {
     });
 };
 
-export const playerDoubleDownAction = (deckId) => async (dispatch) => {
-  const cardResponse = await drawCards(deckId, 1);
+const reshuffleDeck = (deck)=>{
+  return axios.get(`https://deckofcardsapi.com/api/deck/${deck.deck_id}/shuffle/`)
+  .then((res) => {
+    console.log(res)
+  }).catch((err)=>{
+    console.log(err);
+    console.error(err);
+  })
+}
+
+export const playerDoubleDownAction = (deck) => async (dispatch) => {
+  const cardResponse = await drawCards(deck, 1);
   dispatch({
     type: DOUBLE_DOWN,
     payload: cardResponse.cards[0],
   });
 };
 
-export const dealerDrawAction = (deckId, count) => async (dispatch) => {
-  let cardResponse = await drawCards(deckId, count);
+export const dealerDrawAction = (deck, count) => async (dispatch) => {
+  let cardResponse = await drawCards(deck, count);
   dispatch({
     type: HIT_DEALER,
     payload: {
