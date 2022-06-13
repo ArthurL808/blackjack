@@ -26,7 +26,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <h3>Black Jack App</h3>
+      <h3>Welcome to the S.F.M. Blackjack!</h3>
       <RoundResults roundResults={roundResults} />
       {bettingRound ? (
         <BetWindow deck={deck} />

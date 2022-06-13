@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Styles from "./BetWindow.module.css"
 import { useSelector } from "react-redux";
 import { placeBetAction, dealHandsAction } from "../actions";
 import { selectPlayerCurrency } from "../selectors";
@@ -10,40 +11,40 @@ const BetWindow = ({ ...props }) => {
   const playerCurrency = useSelector(selectPlayerCurrency);
 
   return (
-    <div>
-      Bet Window
+    <div className={Styles.betWindow}>
       <h4>Player's wallet: ${playerCurrency - bet}</h4>
       <h5>Current Bet: ${bet}</h5>
-      <button
+      <div className={Styles.betMenu}>
+      <button className={Styles.betButton}
         onClick={() => {
           bet + 50 > playerCurrency ? alert("Not enought funds.") : setBet(bet + 50);
         }}
-      >
+        >
         $50
       </button>
-      <button
+      <button className={Styles.betButton}
         onClick={() => {
-         bet + 100 > playerCurrency ? alert("Not enought funds.") : setBet(bet + 100);
+          bet + 100 > playerCurrency ? alert("Not enought funds.") : setBet(bet + 100);
           
         }}
-      >
+        >
         $100
       </button>
-      <button
+      <button className={Styles.betButton}
         onClick={() => {
           bet + 250 > playerCurrency ? alert("Not enought funds.") : setBet(bet + 250);
         }}
-      >
+        >
         $250
       </button>
-      <button
+      <button className={Styles.betButton}
         onClick={() => {
           bet + 500 > playerCurrency ? alert("Not enought funds.") : setBet(bet + 500);
         }}
-      >
+        >
         $500
       </button>
-      <button
+      <button id={Styles.placeBet} className={Styles.betButton}
         onClick={() => {
           if (bet <= 0) {
             return alert("Please place a bet.");
@@ -55,12 +56,14 @@ const BetWindow = ({ ...props }) => {
           setBet(0);
           dispatch(dealHandsAction(props.deck));
         }}
-      >
+        >
         Deal
       </button>
-      <button onClick={()=>{
+      <button id={Styles.clearBet} className={Styles.betButton} 
+      onClick={()=>{
         setBet(0)
       }}>Clear Bet</button>
+      </div>
     </div>
   );
 };
