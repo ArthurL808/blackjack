@@ -1,4 +1,5 @@
 import React from 'react'
+import Styles from './GameBoard.module.css'
 import {useSelector} from 'react-redux'
 import PlayerHand from "../PlayerHand";
 import DealerHand from "../DealerHand";
@@ -19,7 +20,7 @@ const GameBoard = ({...props}) =>{
 
 
     return(
-        <div>
+        <div className={Styles.gameBoard}>
           <p>Cards remaining: {props.deck.remaining}</p>
           <DealerHand
             deck={props.deck}

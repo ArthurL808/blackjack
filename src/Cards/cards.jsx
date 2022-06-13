@@ -7,7 +7,7 @@ const Cards = ({ ...props }) => {
       <div className={Styles.cardBack}>
       <img className={Styles.hideCard} key={props.code} src={props.card.image} alt="playing card" />
       </div>
-    ) : (<img key={props.code} src={props.card.image} alt="playing card" />)
+    ) : (<img className={Styles.card} key={props.code} src={props.card.image} alt="playing card" />)
   )
 };
 

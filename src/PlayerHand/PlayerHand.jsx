@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Styles from './PlayerHand.module.css';
 import Cards from "../Cards";
 import { useDispatch } from "react-redux";
 import { playerLossAction, playerBlackjackAction } from "../actions";
@@ -22,12 +23,14 @@ const PlayerHand = ({ ...props }) => {
     }
   };
   return (
-    <div>
+    <>
       <p>{props.total}</p>
+    <div className={Styles.playerHand}>
       {props.cards.map((card) => {
         return <Cards key={card.code} card={card} />;
       })}
     </div>
+      </>
   );
 };
 export default PlayerHand;

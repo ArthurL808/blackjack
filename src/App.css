@@ -1,7 +1,7 @@
 .App {
   display: flex;
   flex-direction: column;
-  justify-content:center;
+  justify-content:space-evenly;
   text-align: center;
   background-color: #1a5537;
   height: 100vh;
