@@ -16,7 +16,7 @@ export const PLAYER_BUST = "PLAYER_BUST";
 
 export const getDeckAction = () => (dispatch) => {
   axios
-    .get("http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
+    .get("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
     .then((res) => {
       dispatch({
         type: LOAD_DECK,
@@ -55,7 +55,7 @@ const drawCards = async (deck, count) => {
    await reshuffleDeck(deck)
   }
  return await axios
-    .get(`http://deckofcardsapi.com/api/deck/${deck.deck_id}/draw/?count=${count}`)
+    .get(`https://deckofcardsapi.com/api/deck/${deck.deck_id}/draw/?count=${count}`)
     .then((res) => {
       return res.data;
     })
