@@ -1,0 +1,21 @@
+.resultWindow{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 16px;
+    justify-content:center;
+    align-items: center;
+    height: auto;
+    width: 50%;
+    position:absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid white;
+    background-color: #1a5537;
+    color: white;
+}
+ #closeResults{
+    margin: 8px;
+    height:40px;
+ }

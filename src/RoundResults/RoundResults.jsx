@@ -1,4 +1,5 @@
 import React from "react";
+import Styles from './RoundResults.module.css'
 import { useDispatch } from "react-redux";
 import { startBettingRoundAction } from "../actions";
 
@@ -7,10 +8,10 @@ const RoundResults = ({ ...props }) => {
   const dispatch = useDispatch();
 
   return props.roundResults.roundEnd ? (
-    <div>
+    <div className={Styles.resultWindow}>
       {props.roundResults.message}
 
-      <button
+      <button id={Styles.closeResults}
         onClick={() => {
           dispatch(startBettingRoundAction);
         }}

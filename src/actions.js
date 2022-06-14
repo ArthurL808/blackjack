@@ -50,7 +50,7 @@ export const hitUserAction = (deck, count) => async (dispatch) => {
 };
 
 const drawCards = async (deck, count) => {
-  if(deck.remaining <= count) {
+  if(deck.remaining <= 4 || deck.remaining <= count) {
    await reshuffleDeck(deck)
   }
  return await axios
