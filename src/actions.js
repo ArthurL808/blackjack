@@ -12,6 +12,7 @@ export const PLAYER_PUSH = "PLAYER_PUSH";
 export const PLACE_BET = "PLACE_BET";
 export const START_BETTING = "START_BETTING";
 export const DOUBLE_DOWN = "DOUBLE_DOWN";
+export const PLAYER_BUST = "PLAYER_BUST";
 
 export const getDeckAction = () => (dispatch) => {
   axios
@@ -130,6 +131,13 @@ export const playerWinAction = (dispatch) => {
   });
 };
 
+export const playerBustAction = (dispatch) => {
+  return dispatch({
+    type: PLAYER_BUST,
+    payload: true,
+    message: "Bust! Sorry you've lost $",
+  });
+};
 export const playerPushAction = (dispatch) => {
   return dispatch({
     type: PLAYER_PUSH,
