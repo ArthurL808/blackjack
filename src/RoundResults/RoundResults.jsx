@@ -11,7 +11,7 @@ const RoundResults = ({ ...props }) => {
     <div className={Styles.resultWindow}>
       {props.roundResults.message}
 
-      <button id={Styles.closeResults}
+      <button className={Styles.closeResults}
         onClick={() => {
           dispatch(startBettingRoundAction);
         }}

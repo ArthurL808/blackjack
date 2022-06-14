@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Styles from './PlayerHand.module.css';
 import Cards from "../Cards";
 import { useDispatch } from "react-redux";
-import { playerLossAction, playerBlackjackAction } from "../actions";
+import { playerBlackjackAction,playerBustAction } from "../actions";
 const PlayerHand = ({ ...props }) => {
   const dispatch = useDispatch();
 
@@ -13,7 +13,7 @@ const PlayerHand = ({ ...props }) => {
 
   const checkForBust = (total) => {
     if (total > 21) {
-      dispatch(playerLossAction);
+      dispatch(playerBustAction);
     }
   };
 

@@ -11,6 +11,7 @@ import {
   PLACE_BET,
   START_BETTING,
   DOUBLE_DOWN,
+  PLAYER_BUST
 } from "./actions";
 
 const initalState = {
@@ -82,6 +83,15 @@ export const reducer = (state = initalState, action) => {
         dealersCards: [...state.dealersCards, action.payload.card],
       };
     case PLAYER_LOSS:
+      return {
+        ...state,
+        roundResults: {
+          ...state.roundResults,
+          roundEnd: action.payload,
+          message: action.message + state.currentBet,
+        },
+      };
+      case PLAYER_BUST:
       return {
         ...state,
         roundResults: {

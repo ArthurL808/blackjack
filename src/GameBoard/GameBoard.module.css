@@ -1,9 +1,18 @@
-
+/* Mobile Veiw Start*/
 .gameBoard{
-    height: 70%;
     display: flex;
     flex-direction: column;
     color: white;
     align-items: center;
     justify-content: space-evenly;
+    max-width: 500px;
 }
+/* Mobile Veiw End*/
+
+/* Tablet Veiw Start*/
+@media screen and (min-width: 768px){
+    .gameBoard{
+        width: 60%;
+    }
+}
+/* Tablet Veiw End*/

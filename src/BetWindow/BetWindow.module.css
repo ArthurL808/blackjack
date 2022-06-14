@@ -2,10 +2,11 @@
 .betWindow{
     display: flex;
     flex-direction: column;
-    border: 2px black solid;
+    border: 2px white solid;
     margin: 20px;
     padding: 8px;
     color: white;
+    max-width: 500px;
 }
 
 
@@ -16,7 +17,7 @@
     border-color: white;
     margin: 2px;
     color: white;
-    background-color:orange;
+    background-color:blue;
 }
 
 .betMenu{
@@ -32,3 +33,11 @@
     background-color: #009900
 }
 /* Mobile Veiw End  */
+
+/* Tablet Veiw Start */
+@media screen and (min-width: 768px){
+    .betWindow{
+        width:50%;
+    }
+}
+/* Tablet Veiw End */

@@ -11,8 +11,10 @@
 img{
     width: 25%;
     height: auto;
+    max-width: 150px;
 }
 
 img,.cardBack{
     margin: 0 8px;
 }
+

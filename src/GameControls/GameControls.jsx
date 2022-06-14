@@ -9,7 +9,7 @@ const GameControls = ({ ...props }) => {
     
     return (
         <div className={Styles.controlsContainer}>
-            <button
+            <button className={Styles.gameControlsButton}
               onClick={() => {
                 dispatch(hitUserAction(props.deck, 1));
               }}
@@ -17,7 +17,7 @@ const GameControls = ({ ...props }) => {
               HIT
             </button>
 
-            <button
+            <button className={Styles.gameControlsButton}
               onClick={() => {
                 dispatch(playerStandAction);
               }}

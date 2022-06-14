@@ -1,4 +1,5 @@
 import React from 'react';
+import Styles from '../GameControls.module.css'
 import {useSelector,useDispatch} from 'react-redux'
 import {playerDoubleDownAction} from '../../actions'
 
@@ -12,7 +13,7 @@ const DoubleDown = ({ ...props}) => {
         {props.playersCards.length > 2 ? (
             null
             ) : (
-                <button
+                <button className={Styles.gameControlsButton}
                 onClick={() => {
                     currentBet > playerCurrency ? alert('Not enough funds for double down.') :
                     dispatch(playerDoubleDownAction(props.deckId));
